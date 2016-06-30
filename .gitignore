@@ -1,0 +1,44 @@
+Syntax for HY1 <- read.csv("http://gozips.uakron.edu/~nmimoto/pages/datasets/sunspots.csv",
+               header=F)
+Y <- ts(Y1, start=1770)
+plot(Y,type="o")
+
+plot(acf(Y))
+plot(pacf(Y))
+
+Fit1 <- ar(Y, aic=F, order.max=2)
+Y.h <- predict(Fit1, n.ahead=10)
+ts.plot(cbind(Y,Y.h$pred, Y.h$pred+Y.h$se, Y.h$pred-Y.h$se),
+        type="o", col=c("black","red","blue","blue"))
+
+str(Fit1)
+phi <- Fit1$ar
+sigSq <- Fit1$var.pred
+phiSE <- sqrt(Fit1$asy.var.coef[1,1])
+Fit1$asy.var.coef
+phi
+phiSE
+
+sqrt(Fit1$asy.var.coef)
+e.hat <- Fit1$resid
+plot(e.hat, type="o") 
+acf(e.hat)
+pacf(e.hat)
+
+Fit1 <- ar(Y, aic=F, order.max=3)
+Y.h <- predict(Fit1, n.ahead=10)
+ts.plot(cbind(Y,Y.h$pred, Y.h$pred+Y.h$se, Y.h$pred-Y.h$se),
+        type="o", col=c("black","red","blue","blue"))
+
+str(Fit1)
+phi <- Fit1$ar
+sigSq <- Fit1$var.pred
+phiSE <- sqrt(Fit1$asy.var.coef[1,1])
+Fit1$asy.var.coef
+phi
+phiSE
+
+sqrt(Fit1$asy.var.coef)
+e.hat <- Fit1$resid
+plot(e.hat, type="o") 
+	acf(e.hat)W 3:
